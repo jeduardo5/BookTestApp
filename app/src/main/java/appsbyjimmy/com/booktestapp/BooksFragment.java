@@ -18,6 +18,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import android.util.Log;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.widget.ImageView;
+
 
 
 import java.io.IOException;
@@ -35,8 +39,7 @@ public class BooksFragment extends Fragment {
     private String jsonGet;
 
 
-
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         books = new ArrayList<Book>();
         new AsyncGetBooks().execute();
         View v = inflater.inflate(R.layout.book_fragment_list, container, false);
@@ -45,7 +48,7 @@ public class BooksFragment extends Fragment {
 
         adapter = new BookRecyclerViewAdapter(books);
         recyclerView.setAdapter(adapter);
-        RecyclerView.LayoutManager  layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
         return v;
@@ -53,11 +56,11 @@ public class BooksFragment extends Fragment {
 
     }
 
-    public void update(){
+    public void update() {
         adapter.notifyDataSetChanged();
     }
 
-    public void delete(int position){
+    public void delete(int position) {
         books.remove(position);
         adapter.notifyItemRemoved(position);
     }
@@ -95,9 +98,9 @@ public class BooksFragment extends Fragment {
                 return stringBuffer.toString().trim();
 
 
-            } catch (MalformedURLException  e) {
+            } catch (MalformedURLException e) {
                 e.printStackTrace();
-            }catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             return null;
@@ -120,6 +123,7 @@ public class BooksFragment extends Fragment {
                         String imgURL = jsonObject.getString("imageURL");
                         Book book = new Book(name, author, imgURL);
 
+
                         //add books to books list
                         books.add(book);
 
@@ -127,11 +131,9 @@ public class BooksFragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
-            } catch(JSONException e){
-                    e.printStackTrace();
-                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-
-
         }
     }
+}

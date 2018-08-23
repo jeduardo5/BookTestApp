@@ -1,5 +1,7 @@
 package appsbyjimmy.com.booktestapp;
 
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +10,13 @@ import android.widget.TextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import java.io.IOException;
 
 import java.util.List;
 
@@ -34,6 +42,10 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
             holder.mItem = books.get(position);
             holder.mTitleView.setText(books.get(position).title);
             holder.mAuthorView.setText(books.get(position).author);
+            new AsyncGetImage(holder.mIconView).execute(books.get(position).imgURL);
+
+//            holder.mIconView.setImageBitmap(books.get(position).img);
+
         }
 
         @Override
@@ -67,4 +79,28 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
 
             }
         }
+    private class AsyncGetImage extends AsyncTask<String, Void, Bitmap> {
+        ImageView imgView;
+
+        public AsyncGetImage(ImageView imgView) {
+            this.imgView = imgView;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap bmp = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                bmp = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return bmp;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            imgView.setImageBitmap(result);
+        }
+    }
     }
