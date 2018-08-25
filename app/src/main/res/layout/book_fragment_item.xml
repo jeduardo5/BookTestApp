@@ -11,16 +11,29 @@
         android:layout_gravity="center"
         android:layout_margin="5dp" />
 
-    <TextView
-        android:id="@+id/title"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="#b00000" />
-    <TextView
-        android:id="@+id/author"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="#bbb" />
+        android:layout_height="100dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="false"
+            android:layout_gravity="center"
+            android:layout_marginTop="27dp"
+            android:textColor="#b00000" />
+
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center"
+            android:text="AUTHORcd"
+            android:textColor="#bbb" />
+    </RelativeLayout>
 </LinearLayout>
